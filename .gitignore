@@ -25,3 +25,4 @@ dist-ssr
 
 # Screenshots (local dev only)
 temporary screenshots/
+.vercel
