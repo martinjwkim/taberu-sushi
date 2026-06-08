@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import logo from '../assets/logo-taberu.png'
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -28,11 +29,16 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-6 md:px-10 h-18 flex items-center justify-between">
 
         {/* Wordmark */}
-        <Link to="/" className="flex flex-col leading-none group focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4" aria-label="Taberu Sushi">
-          <span className="label-caps text-gold-dim group-hover:text-gold" style={{ transition: 'color 300ms', fontSize: '0.6rem', letterSpacing: '0.3em' }}>
-            橘 &nbsp; TABERU
-          </span>
-          <span className="font-display italic text-ivory text-xl leading-none tracking-tight group-hover:text-gold-light" style={{ transition: 'color 300ms', letterSpacing: '-0.01em' }}>
+        <Link to="/" className="group flex items-center gap-3 focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-4" aria-label="Taberu Sushi">
+          <img
+            src={logo}
+            alt="Taberu"
+            className="h-9 w-auto select-none group-hover:opacity-100 opacity-95"
+            style={{ transition: 'opacity 300ms' }}
+            draggable="false"
+          />
+          <span className="divider-v h-7 hidden sm:block" aria-hidden="true" />
+          <span className="label-caps text-gold-dim group-hover:text-gold hidden sm:inline" style={{ transition: 'color 300ms', fontSize: '0.6rem', letterSpacing: '0.3em' }}>
             Sushi
           </span>
         </Link>
