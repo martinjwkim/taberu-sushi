@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
 const FEATURED = [
-  { name: 'Omakase Selection', tag: "Chef's Choice", desc: 'Seasonal nigiri curated entirely at the chef\'s discretion — a meditation in balance.', img: 'https://placehold.co/480x640/1c1a16/c8a96e?text=Omakase' },
-  { name: 'O-Toro Sashimi',    tag: 'Premium',       desc: 'Fatty bluefin belly from the finest waters — buttery, impossibly tender.', img: 'https://placehold.co/480x640/242119/c8a96e?text=O-Toro' },
-  { name: 'Hokkaido Uni',      tag: 'Seasonal',      desc: 'Sea urchin set atop hand-pressed shari with a whisper of shiso beneath.', img: 'https://placehold.co/480x640/2d2a23/8c7448?text=Uni+Nigiri' },
-  { name: 'Chirashi Don',      tag: 'Signature',     desc: 'Seasoned rice adorned with twelve selections of the day\'s finest fish.', img: 'https://placehold.co/480x640/1c1a16/c8a96e?text=Chirashi' },
+  { name: 'Omakase Selection', tag: "Chef's Choice", desc: 'Seasonal nigiri and small plates curated entirely at the chef\'s discretion — a meditation in balance.', img: '/frames/OMAKASE.jpg' },
+  { name: 'Sashimi Selection', tag: 'Seasonal',      desc: 'An assortment of the day\'s finest cuts — tuna, hamachi and seasonal whitefish, served impossibly fresh.', img: '/frames/SASHIMI.jpg' },
+  { name: 'Grand Sashimi',     tag: 'Premium',       desc: 'Twelve selections of the season\'s best fish, each presented over chilled, glass-clear daikon.', img: '/frames/SASHIMI_12.jpg' },
+  { name: 'Nigiri Box',        tag: 'Signature',     desc: 'Nine pieces of hand-pressed nigiri — each a single, perfect bite of the day\'s catch.', img: '/frames/SUSHI_BOX_9.jpg' },
 ]
 
 // Paste your Behold Feed ID here after connecting @taberu__sushi at behold.so
@@ -47,9 +47,9 @@ export default function Home() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center anim-fade-up d-300">
-            <Link to="/contact" className="btn-primary">
+            <a href="https://www.yelp.com/reservations/taberu-sushi-santa-ana" target="_blank" rel="noopener noreferrer" className="btn-primary">
               Reserve a Table <Arrow />
-            </Link>
+            </a>
             <Link to="/menu" className="btn-ghost">
               Explore Menu <Arrow />
             </Link>
@@ -90,7 +90,7 @@ export default function Home() {
 
             <div className="relative">
               <div className="aspect-[4/5] overflow-hidden shadow-card-up">
-                <img src="https://placehold.co/500x625/1c1a16/c8a96e?text=Craft" alt="Sushi preparation" className="w-full h-full object-cover" />
+                <img src="/8X10_PRINT_3BOX.jpg" alt="Taberu sushi presentation" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent mix-blend-multiply" />
               </div>
               <div className="absolute -bottom-5 -right-5 w-24 h-24 border-b border-r border-gold/20 hidden md:block" />

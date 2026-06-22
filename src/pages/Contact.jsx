@@ -35,7 +35,7 @@ export default function Contact() {
               <p className="font-body text-sm text-stone leading-relaxed mb-6">
                 We recommend reserving ahead, especially on weekends. Walk-ins are always welcome based on availability.
               </p>
-              <a href="#" className="btn-primary inline-flex gap-2">
+              <a href="https://www.yelp.com/reservations/taberu-sushi-santa-ana" target="_blank" rel="noopener noreferrer" className="btn-primary inline-flex gap-2">
                 Reserve a Table <Arrow />
               </a>
             </div>
@@ -97,14 +97,14 @@ export default function Contact() {
                         {isToday && <span className="label-caps text-gold/55" style={{ fontSize: '0.55rem' }}>Today</span>}
                       </div>
                       <div className="text-right">
-                        <div className="font-body text-sm">11:00 AM – 9:30 PM</div>
-                        <div className="font-body text-xs text-smoke mt-0.5">Break 3:00 PM – 5:00 PM</div>
+                        <div className="font-body text-sm">11:00 AM – 3:00 PM</div>
+                        <div className="font-body text-sm">5:00 PM – 10:00 PM</div>
                       </div>
                     </div>
                   )
                 })}
               </div>
-              <p className="mt-4 font-body text-xs text-smoke italic">Daily break 3 – 5 PM. Last seating 9:00 PM.</p>
+              <p className="mt-4 font-body text-xs text-smoke italic">Lunch 11 AM – 3 PM · Dinner 5 PM – 10 PM, daily.</p>
             </div>
 
             {/* Map */}

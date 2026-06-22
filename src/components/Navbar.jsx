@@ -55,9 +55,14 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
-          <Link to="/contact" className="btn-ghost ml-2 py-2 px-5 text-xs">
-            Reserve
-          </Link>
+          <a
+            href="https://www.clover.com/online-ordering/taberu-sushi-santa-ana"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-ghost ml-2 py-2 px-5 text-xs"
+          >
+            Order Online
+          </a>
         </nav>
 
         {/* Mobile toggle */}
@@ -94,9 +99,14 @@ export default function Navbar() {
               {label}
             </NavLink>
           ))}
-          <Link to="/contact" className="btn-primary mt-1 py-3 justify-center">
-            Reserve a Table
-          </Link>
+          <a
+            href="https://www.clover.com/online-ordering/taberu-sushi-santa-ana"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn-primary mt-1 py-3 justify-center"
+          >
+            Order Online
+          </a>
         </nav>
       </div>
     </header>

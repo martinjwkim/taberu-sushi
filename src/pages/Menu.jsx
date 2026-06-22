@@ -1,177 +1,253 @@
 import { useState, useRef, useEffect } from 'react'
 
 const SECTIONS = [
-  { id: 'nigiri',   label: 'Nigiri Sets' },
-  { id: 'sashimi',  label: 'Sashimi' },
+  { id: 'sushi',    label: 'Sushi & Sashimi' },
   { id: 'rolls',    label: 'Rolls' },
-  { id: 'chirashi', label: 'Chirashi' },
-  { id: 'omakase',  label: 'Omakase' },
-  { id: 'sake',     label: 'Sake' },
-  { id: 'drinks',   label: 'Drinks' },
+  { id: 'bowls',    label: 'Bowls & Hot Plates' },
+  { id: 'starters', label: 'Starters' },
+  { id: 'omakase',  label: 'Omakase & Premium' },
+  { id: 'lunch',    label: 'Lunch Special' },
 ]
 
 const DATA = {
-  nigiri: {
-    title: 'Nigiri Sets',
-    subtitle: 'Hand-pressed sushi rice with seasonal fish',
-    note: 'Sets served with miso soup and house salad',
-    items: [
-      { name: '9-Piece Nigiri Set',   desc: "Chef's selection of 9 seasonal nigiri", price: '32' },
-      { name: '16-Piece Nigiri Set',  desc: "Chef's selection of 16 seasonal nigiri", price: '52' },
-      { name: '24-Piece Nigiri Set',  desc: "Chef's grand selection of 24 premium nigiri", price: '78' },
-      { name: 'Salmon Nigiri (2pc)',  desc: 'Atlantic salmon, sesame, house soy', price: '9' },
-      { name: 'Tuna Nigiri (2pc)',    desc: 'Bluefin akami, wasabi', price: '12' },
-      { name: 'Yellowtail Nigiri (2pc)', desc: 'Hamachi, scallion, ponzu', price: '11' },
-      { name: 'Shrimp Nigiri (2pc)',  desc: 'Botan ebi, house preparation', price: '9' },
-      { name: 'Scallop Nigiri (2pc)', desc: 'Hotate, yuzu kosho', price: '13' },
-      { name: 'O-Toro Nigiri (2pc)',  desc: 'Fatty bluefin belly, aged soy, microgreens', price: '22', badge: 'Premium' },
-      { name: 'Uni Nigiri (2pc)',     desc: 'Hokkaido sea urchin, nori, shiso', price: '24', badge: 'Premium' },
-      { name: 'Ikura Nigiri (2pc)',   desc: 'Salmon roe, quail egg', price: '14' },
-      { name: 'Eel Nigiri (2pc)',     desc: 'Unagi, sweet tare, sesame', price: '12' },
-    ],
-  },
-  sashimi: {
-    title: 'Sashimi Platters',
-    subtitle: 'Premium sliced fish — no rice',
-    note: 'Served with house soy, pickled ginger, and wasabi',
-    items: [
-      { name: 'Sashimi Platter — Small',  desc: "12 pieces, chef's seasonal selection", price: '38' },
-      { name: 'Sashimi Platter — Large',  desc: '20 pieces, premium seasonal selection', price: '62' },
-      { name: 'Salmon Sashimi (5pc)',     desc: 'Atlantic salmon, thinly sliced', price: '18' },
-      { name: 'Tuna Sashimi (5pc)',       desc: 'Bluefin akami', price: '22' },
-      { name: 'Yellowtail Sashimi (5pc)', desc: 'Hamachi, citrus zest', price: '20' },
-      { name: 'O-Toro Sashimi (3pc)',     desc: 'Fatty bluefin belly, premium cut', price: '28', badge: 'Premium' },
-      { name: 'Albacore Sashimi (5pc)',   desc: 'White tuna, garlic ponzu', price: '18' },
-      { name: 'Scallop Sashimi (3pc)',    desc: 'Hokkaido hotate, yuzu', price: '20' },
+  sushi: {
+    title: 'Sushi & Sashimi',
+    subtitle: 'À la carte — Sushi (1 pc) / Sashimi (3 pcs)',
+    note: 'M.P = Market Price · prices listed as Sushi / Sashimi',
+    subsections: [
+      {
+        label: 'By the Piece',
+        items: [
+          { name: 'Bluefin Tuna',        desc: 'Hon Maguro', price: '6 / 18' },
+          { name: 'Bluefin Tuna Belly',  desc: 'Hon Maguro Toro', price: '10 / 30', badge: 'Premium' },
+          { name: 'Cherry Salmon',       desc: 'Sake', price: '4 / 12' },
+          { name: 'Yellowtail',          desc: 'Hamachi', price: '6 / 18' },
+          { name: 'Amberjack',           desc: 'Kanpachi', price: '7 / 21' },
+          { name: 'Striped Jack',        desc: 'Shima Aji', price: '9 / 27' },
+          { name: 'Red Snapper',         desc: 'Ma Dai', price: '7 / 21' },
+          { name: 'Black Snapper',       desc: 'Kurodai', price: '5 / 15' },
+          { name: 'Black Cod',           desc: 'Gindara', price: '7 / 21' },
+          { name: 'Fresh Scallop',       desc: 'Muki', price: 'M.P / M.P' },
+          { name: 'Scallop',             desc: 'Hotate', price: '6 / 18' },
+          { name: 'Live Sweet Shrimp',   desc: 'Live Amaebi', price: 'M.P / M.P' },
+          { name: 'Sweet Shrimp',        desc: 'Amaebi', price: '9 / 27' },
+          { name: 'Wild Horse Mackerel', desc: 'Tsuri Aji', price: 'M.P / M.P' },
+          { name: 'Giant Clam',          desc: 'Miru Gai', price: 'M.P / M.P' },
+          { name: 'Sea Urchin',          desc: 'Uni', price: 'M.P / M.P', badge: 'Premium' },
+          { name: 'A5 Japan Wagyu',      desc: 'Miyazaki', price: 'M.P / M.P', badge: 'Premium' },
+          { name: 'Salmon Roe',          desc: 'Ikura', price: '7 / 21' },
+          { name: 'Monkfish Liver',      desc: 'Ankimo', price: '5 / 15' },
+          { name: 'Sea Water Eel',       desc: 'Anago', price: '7 / 21' },
+          { name: 'Fresh Water Eel',     desc: 'Unagi', price: '7 / 21' },
+        ],
+      },
+      {
+        label: 'Sushi & Sashimi Sets',
+        items: [
+          { name: '7pc Sushi Plate',   desc: 'Bluefin tuna, cherry salmon, kanpachi, shima aji, sea water eel, chef\'s choice special fish · with miso soup & green salad', price: '39' },
+          { name: '9pc Sushi Plate',   desc: 'Bluefin toro, cherry salmon, kanpachi, shima aji, scallop, chef\'s choice special fish · with miso soup & green salad', price: '59', badge: 'Premium' },
+          { name: '8pc Sashimi Box',   desc: 'Bluefin tuna, cherry salmon, kanpachi, kuro dai', price: '42' },
+          { name: '16pc Sashimi Box',  desc: 'Bluefin toro, cherry salmon, kanpachi, shima aji, kuro dai, chef\'s choice 3 kinds of special fish', price: '95', badge: 'Premium' },
+          { name: '24pc Sashimi Box',  desc: 'Bluefin tuna, toro, cherry salmon, kanpachi, shima aji, kuro dai, chef\'s choice 6 kinds of special fish', price: '140', badge: 'Premium' },
+        ],
+      },
     ],
   },
   rolls: {
-    title: 'Signature Rolls',
-    subtitle: 'Handcrafted maki and specialty rolls',
+    title: 'Rolls',
+    subtitle: 'Signature, on-top, tempura, baked & hand rolls',
     note: 'Consuming raw or undercooked seafood may increase risk of foodborne illness',
-    items: [
-      { name: 'Taberu Roll',      desc: 'Spicy tuna, cucumber, topped with salmon, avocado, jalapeño', price: '18', badge: 'Signature' },
-      { name: 'Dragon Roll',      desc: 'Shrimp tempura, cucumber, topped with avocado, eel sauce', price: '17' },
-      { name: 'Rainbow Roll',     desc: 'California roll base topped with 7 varieties of fish', price: '22' },
-      { name: 'Spider Roll',      desc: 'Soft shell crab, cucumber, avocado, spicy mayo', price: '18' },
-      { name: 'Volcano Roll',     desc: 'Baked scallop, cream cheese, masago, spicy sauce', price: '17' },
-      { name: 'Tiger Roll',       desc: 'Yellowtail, scallion, ponzu, crispy onion', price: '16' },
-      { name: 'Spicy Tuna Roll',  desc: 'Tuna, cucumber, spicy mayo', price: '14' },
-      { name: 'Salmon Avocado',   desc: 'Atlantic salmon, avocado, sesame', price: '13' },
-      { name: 'California Roll',  desc: 'Imitation crab, cucumber, avocado', price: '10' },
-      { name: 'Vegetable Roll',   desc: 'Cucumber, avocado, pickled radish, asparagus', price: '10' },
-      { name: 'Crunch Roll',      desc: 'Shrimp tempura, cream cheese, tempura crunch, eel sauce', price: '15' },
-      { name: 'Caterpillar Roll', desc: 'Eel, cucumber, topped with avocado, sesame', price: '17' },
+    subsections: [
+      {
+        label: 'Signature Rolls',
+        items: [
+          { name: 'S&T Roll',                  desc: 'Lobster, asparagus, avocado, topped with wagyu, onion ponzu, den miso sauce, fried onion', price: '28', badge: 'Signature' },
+          { name: 'Double Hamachi',            desc: 'Spicy yellowtail, cucumber, topped with yellowtail, onion ponzu, serrano, fried onion', price: '24' },
+          { name: 'Double Tuna',               desc: 'Spicy tuna, cucumber, topped with bluefin tuna, ponzu, crispy garlic', price: '25' },
+          { name: 'Double Salmon',             desc: 'Spicy cherry salmon, cucumber, topped with cherry salmon, truffle aioli, tobiko', price: '22' },
+          { name: 'Cucumber Sashimi Roll',     desc: 'Bluefin tuna, cherry salmon, yellowtail, white fish, avocado, wrapped with cucumber, ponzu · 6pcs', price: '23' },
+          { name: 'Rainbow Roll',              desc: 'Snow crab roll topped with bluefin tuna, cherry salmon, yellowtail, white fish', price: '22' },
+          { name: 'Green Goddess Roll',        desc: 'Roasted eggplant, asparagus, topped with avocado, tomato jam, black garlic sauce', price: '20' },
+          { name: 'Spicy Tuna Mango Sauce Roll', desc: 'Spicy tuna roll with rice cereal, topped with mango sauce', price: '18' },
+        ],
+      },
+      {
+        label: 'On-Top Rolls — Snow Crab Roll Base',
+        items: [
+          { name: 'Tuna on Top',             desc: 'Bluefin tuna, ponzu', price: '24' },
+          { name: 'Tuna & Salmon on Top',    desc: 'Bluefin tuna, cherry salmon, ponzu', price: '23' },
+          { name: 'Salmon on Top',           desc: 'Cherry salmon, ponzu, truffle aioli, tobiko', price: '23' },
+          { name: 'Salmon & Avocado on Top', desc: 'Cherry salmon, ponzu, truffle aioli, tobiko', price: '23' },
+        ],
+      },
+      {
+        label: 'On-Top Rolls — Spicy Tuna Roll Base',
+        items: [
+          { name: 'Tuna & Salmon on Top',    desc: 'Bluefin tuna, cherry salmon, ponzu', price: '23' },
+          { name: 'Salmon on Top',           desc: 'Cherry salmon, ponzu, truffle aioli, tobiko', price: '23' },
+          { name: 'Salmon & Avocado on Top', desc: 'Cherry salmon, ponzu, truffle aioli, tobiko', price: '23' },
+        ],
+      },
+      {
+        label: 'Premium Hand Rolls',
+        items: [
+          { name: 'Toro & Uni Hand Roll',                desc: '', price: '29', badge: 'Premium' },
+          { name: 'Amaebi & Uni Hand Roll',             desc: '', price: '30', badge: 'Premium' },
+          { name: 'Soft Shell Crab & Blue Crab Hand Roll', desc: '', price: '25' },
+          { name: 'Toro Hand Roll',                      desc: '', price: '17' },
+          { name: 'Blue Crab Hand Roll',                 desc: '', price: '12' },
+        ],
+      },
+      {
+        label: 'Tempura Rolls',
+        items: [
+          { name: 'Shrimp Tempura Roll',     desc: 'Snow crab roll, jumbo shrimp tempura on top, eel sauce', price: '19' },
+          { name: 'Snow Crab Tempura Roll',  desc: 'Eel sauce, spicy mayo', price: '17' },
+          { name: 'Spicy Tuna Tempura Roll', desc: 'Eel sauce, spicy mayo', price: '15' },
+        ],
+      },
+      {
+        label: 'Baked Rolls',
+        items: [
+          { name: 'Scorched Crab Roll (3pc)', desc: 'Snow crab, soy paper, baked mayo, tobiko', price: '17' },
+          { name: 'Volcano Roll',             desc: 'Snow crab roll, baked scallop, baked mayo, eel sauce', price: '18' },
+          { name: 'Baked Salmon Roll',        desc: 'Snow crab roll, cherry salmon, baked mayo, eel sauce', price: '18' },
+        ],
+      },
+      {
+        label: 'Basic Rolls',
+        items: [
+          { name: 'Snow Crab Roll',        desc: '', price: '13' },
+          { name: 'Bluefin Tuna Roll (6pc)', desc: '', price: '12' },
+          { name: 'Yellowtail Roll',       desc: '', price: '11' },
+          { name: 'Cherry Salmon Roll',    desc: '', price: '10' },
+          { name: 'Spicy Tuna Roll',       desc: '', price: '9' },
+          { name: 'Salmon Skin Roll',      desc: '', price: '9' },
+          { name: 'Avocado Roll',          desc: '', price: '9' },
+          { name: 'Cucumber Roll',         desc: '', price: '8' },
+        ],
+      },
     ],
   },
-  chirashi: {
-    title: 'Chirashi',
-    subtitle: 'Scattered sushi over seasoned rice',
-    note: 'All bowls served with miso soup',
-    items: [
-      { name: 'Chirashi Don',      desc: 'Twelve seasonal selections of sashimi over sushi rice', price: '45', badge: 'Signature' },
-      { name: 'Tekka Don',         desc: 'Tuna-forward chirashi, wasabi, house soy', price: '38' },
-      { name: 'Sake Don',          desc: 'Salmon-forward bowl, ikura accent, shiso', price: '35' },
-      { name: 'Premium Chirashi',  desc: 'O-toro, uni, ikura, hotate, and seasonal selections', price: '72', badge: 'Premium' },
-      { name: 'Poke Bowl',         desc: 'Hawaiian-style marinated tuna or salmon, rice, house sauce', price: '22' },
+  bowls: {
+    title: 'Bowls & Hot Plates',
+    subtitle: 'Donburi, garlic rice plates & udon',
+    note: 'Donburi & hot plates served with sunomono, wakame salad & miso soup',
+    subsections: [
+      {
+        label: 'Donburi',
+        items: [
+          { name: 'Edo Box',        desc: 'Uni, toro tartare, chef\'s choice of 14pcs seasonal fishes', price: '90', badge: 'Premium' },
+          { name: 'Chirashi',       desc: 'Chef\'s choice 12pcs sashimi, sushi rice, furikake', price: '52', badge: 'Signature' },
+          { name: 'Toro Donburi',   desc: 'Chopped bluefin toro, chopped ginger, alfalfa, sushi rice, sesame oil, furikake', price: '35' },
+          { name: 'Unagi Donburi',  desc: '5pcs unagi, sushi rice, sesame oil, furikake', price: '30' },
+          { name: 'Salmon Donburi', desc: '6pcs cherry salmon, ikura, sushi rice, sesame oil, furikake', price: '28' },
+        ],
+      },
+      {
+        label: 'Signature Hot Plates',
+        items: [
+          { name: 'Grilled Cherry Salmon & Garlic Rice Plate', desc: '', price: '28' },
+          { name: 'Spicy Pork & Garlic Rice Plate',            desc: '', price: '28' },
+          { name: 'Bulgogi & Garlic Rice Plate',               desc: '', price: '28' },
+          { name: 'Nakji & Garlic Rice Plate',                 desc: 'Spicy small octopus', price: '28' },
+        ],
+      },
+      {
+        label: 'Udon',
+        items: [
+          { name: 'Basic Udon',              desc: '', price: '11' },
+          { name: 'Add Snow Crab Roll',      desc: 'Add only one', price: '12' },
+          { name: 'Add Spicy Tuna Roll',     desc: 'Add only one', price: '8' },
+          { name: 'Add Shrimp Tempura (3pc)', desc: 'Add only one', price: '8' },
+        ],
+      },
+    ],
+  },
+  starters: {
+    title: 'Starters',
+    subtitle: 'Appetizers, cold plates & salads',
+    subsections: [
+      {
+        label: 'Appetizers',
+        items: [
+          { name: 'Miso Soup',                  desc: '', price: '2' },
+          { name: 'Edamame',                    desc: '', price: '5' },
+          { name: 'Garlic Soy Edamame',         desc: '', price: '8' },
+          { name: 'Gyoza (5pc)',                desc: 'Ground pork or chicken', price: '8' },
+          { name: 'Agedashi Tofu',              desc: 'Bonito flakes', price: '9' },
+          { name: 'Chawanmushi',                desc: 'Japanese steamed egg custard with shiitake mushroom, shrimp', price: '10' },
+          { name: 'Agedashi Egg Plant',         desc: '', price: '10' },
+          { name: 'Shishito Pepper',            desc: 'Bonito flakes', price: '13' },
+          { name: 'Snow Crab Porridge',         desc: '', price: '14' },
+          { name: 'Shrimp Tempura (5pc)',       desc: '5pcs shrimp tempura with mugwort', price: '15' },
+          { name: 'Spicy Tuna & Crispy Rice',   desc: '3pcs, eel sauce, spicy mayo', price: '15' },
+          { name: 'Fish Kama',                  desc: '', price: '16' },
+          { name: 'Soft Shell Crab Tempura (1pc)', desc: '', price: '17' },
+          { name: 'Assorted Tempura',           desc: 'Sweet potato, mugwort, green bean, shrimp', price: '17' },
+          { name: 'Baked Scallop',              desc: '4pcs with volcano mayo sauce, chili oil, crispy garlic, tobiko', price: '17' },
+        ],
+      },
+      {
+        label: 'Cold Appetizers',
+        items: [
+          { name: 'Ceviche',              desc: 'Octopus, scallop, grape, shallots, shrimp chip, house sauce', price: '18' },
+          { name: 'Crab in Salmon',       desc: '3pcs cherry salmon, blue crab, truffle aioli, tobiko', price: '19' },
+          { name: 'Yellowtail Jalapeño',  desc: '5pcs yellowtail, serrano, onion ponzu, micro cilantro', price: '19' },
+          { name: 'Mizu Tako Aburi',      desc: '5pcs smoked fresh octopus, oba, house sauce', price: '20' },
+          { name: 'Octopus & Special Sauce', desc: '5pcs octopus, cherry tomato, oba, house sauce', price: '20' },
+          { name: 'Cherry Salmon Crudo',  desc: '5pcs cherry salmon, shallots, capers, ponzu, lime juice', price: '20' },
+          { name: 'Uni on Top Scallop',   desc: '2pcs seared scallop, uni, caviar', price: '33', badge: 'Premium' },
+        ],
+      },
+      {
+        label: 'Salads',
+        items: [
+          { name: 'Seaweed Salad',            desc: '', price: '6' },
+          { name: 'Sunomono Salad w/ Wakame', desc: '', price: '7' },
+          { name: 'Taberu Salad',             desc: 'Mixed greens, cherry tomatoes, beets, mozzarella cheese, house sauce', price: '8' },
+          { name: 'Salmon Skin Salad',        desc: '', price: '14' },
+          { name: 'Taberu Sashimi Salad',     desc: '', price: '16' },
+        ],
+      },
     ],
   },
   omakase: {
-    title: 'Omakase',
+    title: 'Omakase & Premium',
     subtitle: "The chef's complete expression",
-    note: '48-hour advance notice required · Dietary restrictions accommodated · Private dining available',
+    note: 'Fish availability changes by season · all sushi & sashimi brushed with soy dressing',
+    subsections: [
+      {
+        label: 'Omakase',
+        items: [
+          { name: 'Omakase', desc: 'Chawanmushi or snow crab porridge, then a 16-item course by chef\'s choices', price: '170', badge: 'Reserve' },
+        ],
+      },
+      {
+        label: 'Premium Menu',
+        items: [
+          { name: 'Taberu Shoshin 匠心', desc: '18 kinds of chef\'s seasonal choices', price: '240', badge: 'Premium' },
+          { name: 'Toro Tartare',        desc: 'Bluefin tuna toro, truffle, 8pcs baguette bread with brushed truffle oil', price: '38' },
+          { name: 'Uni Flight',          desc: 'Amaebi on top uni, toro on top uni, scallop on top uni', price: 'M.P', badge: 'Premium' },
+        ],
+      },
+    ],
+  },
+  lunch: {
+    title: 'Lunch Special',
+    subtitle: 'Served 11:00 AM – 3:00 PM',
+    note: 'All lunch specials served with miso soup',
     items: [
-      { name: 'Omakase — Seasonal',      desc: 'A curated 12-course journey through the season\'s finest.', price: '150/person', badge: 'Reserve' },
-      { name: 'Omakase — Premium',       desc: 'An elevated 16-course experience with o-toro, uni, and rare selections.', price: '220/person', badge: 'Reserve' },
-      { name: 'Private Event Omakase',   desc: 'Exclusive dining for your group. Custom menu designed around your occasion.', price: 'Contact us', badge: 'Private' },
-    ],
-  },
-  sake: {
-    title: 'Sake',
-    subtitle: 'Curated nihonshu selection',
-    note: 'Ask your server about seasonal pairings',
-    subsections: [
-      {
-        label: 'Sparkling Sake',
-        items: [
-          { name: 'Hakutsuru Enjoy',    desc: 'Light, effervescent, dry finish · 300ml', price: '18' },
-          { name: 'Mio Sparkling Sake', desc: 'Fruity, gentle fizz · 300ml', price: '16' },
-        ],
-      },
-      {
-        label: 'Junmai Daiginjo',
-        items: [
-          { name: 'Dassai 39',       desc: 'Fruity, floral, smooth · 300ml', price: '42', badge: 'Premium' },
-          { name: 'Born Gold Junmai',desc: 'Clean, refined, elegant · 300ml', price: '36' },
-          { name: 'Hakutsuru Taru',  desc: 'Cedar-aged, dry · 300ml', price: '22' },
-        ],
-      },
-      {
-        label: 'Junmai',
-        items: [
-          { name: 'Gekkeikan Traditional',   desc: 'Classic dry, full-bodied · 300ml', price: '14' },
-          { name: 'Ozeki Nigori Unfiltered', desc: 'Creamy, sweet, slightly chunky · 300ml', price: '16' },
-          { name: 'Sho Chiku Bai Classic',   desc: 'Light, versatile, great warm · 300ml', price: '12' },
-        ],
-      },
-      {
-        label: 'By the Glass',
-        items: [
-          { name: 'House Sake — Hot',  desc: 'Warm preparation · 6oz', price: '9' },
-          { name: 'House Sake — Cold', desc: 'Chilled preparation · 6oz', price: '9' },
-          { name: 'Premium Sake',      desc: 'Ask server for current selection · 3oz', price: '14' },
-        ],
-      },
-    ],
-  },
-  drinks: {
-    title: 'Drinks',
-    subtitle: 'Beverages & libations',
-    subsections: [
-      {
-        label: 'Soju',
-        items: [
-          { name: 'Chum Churum Original', desc: "Korea's smoothest · 375ml", price: '22' },
-          { name: 'Jinro Strawberry',     desc: 'Light, fruity, great chilled · 375ml', price: '22' },
-          { name: 'Chum Churum Peach',    desc: 'Lightly sweet, peach finish · 375ml', price: '22' },
-          { name: 'Soju by the Glass',    desc: 'Chilled, 2oz · choice of flavors', price: '8' },
-        ],
-      },
-      {
-        label: 'Beer',
-        items: [
-          { name: 'Sapporo Premium', desc: 'Japanese lager · 22oz can', price: '9' },
-          { name: 'Kirin Ichiban',   desc: 'Crisp, light Japanese lager · 12oz', price: '7' },
-          { name: 'Asahi Super Dry', desc: 'Ultra-dry, clean finish · 12oz', price: '7' },
-          { name: 'Sapporo Reserve', desc: 'Rich, malty lager · 22oz can', price: '10' },
-        ],
-      },
-      {
-        label: 'Wine',
-        items: [
-          { name: 'Sake Plum Wine', desc: 'Nigori-style, sweet, chilled · glass', price: '10' },
-          { name: 'House White',    desc: 'Chardonnay or Pinot Grigio · glass', price: '12' },
-          { name: 'House Red',      desc: 'Pinot Noir or Merlot · glass', price: '12' },
-          { name: 'Rosé',           desc: 'Dry, Provence style · glass', price: '13' },
-        ],
-      },
-      {
-        label: 'Non-Alcoholic',
-        items: [
-          { name: 'Ramune Soda',      desc: 'Japanese marble soda · original or melon', price: '5' },
-          { name: 'Green Tea',        desc: 'Hot or iced, house-brewed sencha', price: '4' },
-          { name: 'Matcha Latte',     desc: 'Ceremonial grade, oat or whole milk', price: '7' },
-          { name: 'Yuzu Lemonade',    desc: 'Fresh yuzu, honey, sparkling water', price: '6' },
-          { name: 'Sparkling Water',  desc: 'San Pellegrino · 16oz', price: '4' },
-          { name: 'Soft Drinks',      desc: 'Coke, Diet Coke, Sprite, Lemonade', price: '4' },
-        ],
-      },
+      { name: 'Taberu Lunch Course', desc: 'Chawanmushi, mini kaisendon, chef\'s choice 7 types special fish sushi, dessert', price: '85', badge: 'Signature' },
+      { name: 'Sushi Lunch Set',     desc: '2pcs bluefin tuna, 2pcs cherry salmon, 2pcs yellowtail, spicy tuna roll, salad, pickle', price: '29' },
+      { name: 'Lunch Box',           desc: 'Spicy pork or bulgogi with rice, snow crab or spicy tuna roll, salad, edamame, shrimp / sweet potato / green bean tempura', price: '27' },
+      { name: 'Grilled Cherry Salmon with Spicy Tuna Roll', desc: 'With salad, edamame', price: '27' },
     ],
   },
 }
 
 export default function Menu() {
-  const [active, setActive] = useState('nigiri')
+  const [active, setActive] = useState('sushi')
   const sectionRefs = useRef({})
 
   useEffect(() => {
@@ -243,6 +319,10 @@ export default function Menu() {
             <MenuSection data={DATA[id]} />
           </section>
         ))}
+
+        <p className="text-center font-body text-2xs text-smoke italic max-w-2xl mx-auto leading-relaxed">
+          Consuming raw or undercooked meats, poultry, seafood, shellfish, or eggs may increase your risk of foodborne illness, especially if you have certain medical conditions. An 18% gratuity will be added to parties of 6 or more.
+        </p>
       </div>
     </div>
   )
@@ -289,6 +369,14 @@ function ItemGrid({ items }) {
   )
 }
 
+function formatPrice(price) {
+  const fmt = (p) => (/^\d/.test(p) ? `$${p}` : p)
+  if (price.includes('/')) {
+    return price.split('/').map((p) => fmt(p.trim())).join(' / ')
+  }
+  return fmt(price)
+}
+
 function MenuItem({ item }) {
   return (
     <div className="menu-row">
@@ -296,15 +384,18 @@ function MenuItem({ item }) {
         <div className="flex items-center gap-2 flex-wrap mb-1">
           <span className="font-display italic text-base text-ivory">{item.name}</span>
           {item.badge && (
-            <span className="font-body text-2xs tracking-caps-wide uppercase px-2 py-0.5 text-gold/70 flex-shrink-0" style={{ border: '1px solid rgba(200,169,110,0.28)' }}>
+            <span
+              className="font-body uppercase text-gold/70 flex-shrink-0"
+              style={{ fontSize: '0.5rem', letterSpacing: '0.18em', padding: '0.1rem 0.4rem', lineHeight: 1, border: '1px solid rgba(200,169,110,0.28)' }}
+            >
               {item.badge}
             </span>
           )}
         </div>
         {item.desc && <p className="font-body text-xs text-stone leading-relaxed">{item.desc}</p>}
       </div>
-      <span className="font-body text-sm text-gold font-medium ml-4 flex-shrink-0">
-        {item.price.startsWith('Contact') ? <span className="text-parchment text-xs italic">{item.price}</span> : `$${item.price}`}
+      <span className="font-body text-sm text-gold font-medium ml-4 flex-shrink-0 whitespace-nowrap">
+        {formatPrice(item.price)}
       </span>
     </div>
   )

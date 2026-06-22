@@ -48,8 +48,8 @@ export default function Footer() {
                 (714) 852-3125
               </a>
               <div className="font-body text-sm text-stone">
-                <p>Mon–Sun: 11am – 9:30pm</p>
-                <p className="text-xs text-smoke mt-0.5">Break: 3pm – 5pm daily</p>
+                <p>Lunch: 11am – 3pm</p>
+                <p>Dinner: 5pm – 10pm</p>
               </div>
             </address>
             <a
