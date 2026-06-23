@@ -122,8 +122,18 @@ export default function Home() {
 
       {/* ─── OMAKASE CALLOUT ───────────────────────────────── */}
       <section className="relative overflow-hidden py-28 md:py-40 bg-charcoal">
+        {/* Whale mural — the real Taberu back wall, filling the section */}
+        <img
+          src="/whale-mural.jpg"
+          alt=""
+          aria-hidden="true"
+          className="absolute inset-0 w-full h-full object-cover object-[72%_center] opacity-[0.34] pointer-events-none select-none"
+        />
+        {/* Legibility veil — top/bottom fade + warmth */}
+        <div className="absolute inset-0 pointer-events-none bg-gradient-to-b from-charcoal via-charcoal/45 to-charcoal" />
+        <div className="absolute inset-0 pointer-events-none mix-blend-multiply" style={{ background: 'rgba(20,18,14,0.4)' }} />
         <div className="absolute inset-0 pointer-events-none"
-          style={{ background: 'radial-gradient(ellipse 55% 70% at 50% 50%, rgba(200,169,110,0.065) 0%, transparent 62%)' }}
+          style={{ background: 'radial-gradient(ellipse 55% 70% at 50% 50%, rgba(200,169,110,0.07) 0%, transparent 62%)' }}
         />
         <div className="divider-v absolute left-1/4 top-0 h-full opacity-30" />
         <div className="divider-v absolute right-1/4 top-0 h-full opacity-30" />
