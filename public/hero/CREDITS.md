@@ -5,10 +5,10 @@ attribution appreciated but not required). Downloaded 2026-06-29.
 
 | File | Unsplash photo ID | Used on |
 |------|-------------------|---------|
-| `hero-home.jpg`    | `photo-1615361200098-9e630ec29b4e` | Home hero |
-| `hero-about.jpg`   | `photo-1607301405418-780ee5e6dd10` | About header |
-| `hero-menu.jpg`    | `photo-1583623025817-d180a2221d0a` | Menu header |
-| `hero-contact.jpg` | `photo-1617196905100-216ffe128142` | Contact header |
+| `hero-home.jpg`    | `zali_zGDWo8` (salmon nigiri on black) | Home hero |
+| `hero-about.jpg`   | `WMjCjmkGL2k` (wooden sashimi box; lower-portion crop) | About header |
+| `hero-menu.jpg`    | `dqulzxRF31M` (hand holding chopsticks on dark stone) | Menu header |
+| `hero-contact.jpg` | `J8vNJfGz6os` (itamae presenting nigiri at the counter) | Contact header |
 
 To re-fetch at a given size: `https://images.unsplash.com/<photo-id>?w=2400&q=72&fm=jpg&fit=crop`
 

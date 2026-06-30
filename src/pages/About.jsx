@@ -11,19 +11,18 @@ export default function About() {
   return (
     <div className="min-h-screen bg-obsidian pt-18">
       {/* Hero */}
-      <div className="relative overflow-hidden py-20 md:py-32 bg-carbon">
+      <div className="relative overflow-hidden py-20 md:py-28 bg-carbon">
         {/* Background photography — submerged beneath the theme */}
-        <div className="hero-photo" style={{ backgroundImage: 'url(/hero/hero-about.jpg)', backgroundPosition: 'center 55%' }} aria-hidden="true" />
+        <div className="hero-photo" style={{ backgroundImage: 'url(/hero/hero-about.jpg)' }} aria-hidden="true" />
         <div className="hero-scrim hero-scrim-left" aria-hidden="true" />
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 65% 65% at 50% 100%, rgba(200,169,110,0.06) 0%, transparent 60%)' }}
         />
         <div className="relative max-w-7xl mx-auto px-6 md:px-10">
           <div className="max-w-2xl">
-            <p className="label-caps mb-5">Our Philosophy</p>
-            <h1 className="font-display text-ivory mb-6 tracking-display" style={{ fontSize: 'var(--font-size-hero)', lineHeight: 'var(--line-height-hero)' }}>
-              We serve<br />
-              <span className="italic text-gradient">what the day gives</span>
+            <p className="label-caps mb-5">Who We Are</p>
+            <h1 className="font-display text-ivory mb-6 italic tracking-display" style={{ fontSize: 'var(--font-size-hero)', lineHeight: 'var(--line-height-hero)' }}>
+              About <span className="text-gradient not-italic">Us</span>
             </h1>
             <p className="font-body text-parchment/80 text-base leading-body max-w-lg">
               No frozen fish. No fixed menu. No shortcuts. Every piece reflects the season's best — chosen that morning, served that night.
@@ -40,7 +39,7 @@ export default function About() {
             <div>
               <div className="flex items-center gap-4 mb-8">
                 <span className="divider-v h-8" />
-                <p className="label-caps">Our Story</p>
+                <p className="label-caps">Origins</p>
               </div>
               <h3 className="font-display text-ivory mb-6 italic tracking-tight" style={{ fontSize: 'var(--font-size-sub)', lineHeight: 'var(--line-height-display)' }}>
                 Born from a love for the original form
