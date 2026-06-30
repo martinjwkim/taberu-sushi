@@ -41,12 +41,12 @@ export default function Home() {
             <span className="divider-v h-7" />
           </div>
 
-          <h1 className="font-display text-ivory anim-fade-up d-100 mb-5 tracking-display" style={{ fontSize: 'var(--font-size-hero)', lineHeight: 'var(--line-height-hero)' }}>
+          <h1 className="font-display text-ivory anim-fade-up d-100 mb-5 tracking-display" style={{ fontSize: 'clamp(4.4rem, 11vw, 7.5rem)', lineHeight: 'var(--line-height-hero)' }}>
             <span className="block">Taberu</span>
             <span className="block italic text-gradient">Sushi</span>
           </h1>
 
-          <p className="font-body text-parchment/80 anim-fade-up d-200 max-w-sm mx-auto mb-12 leading-relaxed" style={{ fontSize: '1rem' }}>
+          <p className="font-body italic text-parchment/80 anim-fade-up d-200 max-w-sm mx-auto mb-12 leading-relaxed" style={{ fontSize: '1rem' }}>
             Hand-crafted sushi and sashimi from the season's&nbsp;finest&nbsp;fish
           </p>
 
