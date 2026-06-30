@@ -108,10 +108,10 @@ export default function About() {
               <div className="space-y-4 font-body text-sm text-parchment/80 leading-body mb-8">
                 <p>Omakase is a relationship of trust. When you say おまかせします — "I leave it to you" — the chef accepts full responsibility for your experience.</p>
                 <p>Our omakase begins with the market. Each morning, our itamae selects what is finest, and that choice becomes the evening's menu.</p>
-                <p>Courses range from 12 to 16, served at a measured pace. Advance reservation is required to ensure we can source and prepare accordingly.</p>
+                <p>Courses range from 12 to 16, served at a measured pace. Advance reservation is recommended to ensure we can source and prepare accordingly.</p>
               </div>
               <div className="space-y-2 font-body text-xs text-stone mb-8">
-                {['48-hour advance notice required','Dietary restrictions accommodated','Private dining room available','Sake pairing available on request'].map((t, i) => (
+                {['Dietary restrictions accommodated','Sake pairing available on request'].map((t, i) => (
                   <div key={i} className="flex items-start gap-3">
                     <span className="text-gold mt-0.5">—</span>
                     <span>{t}</span>

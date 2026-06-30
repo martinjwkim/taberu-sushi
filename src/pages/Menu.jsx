@@ -150,7 +150,6 @@ const DATA = {
           { name: 'Grilled Cherry Salmon & Garlic Rice Plate', desc: '', price: '28' },
           { name: 'Spicy Pork & Garlic Rice Plate',            desc: '', price: '28' },
           { name: 'Bulgogi & Garlic Rice Plate',               desc: '', price: '28' },
-          { name: 'Nakji & Garlic Rice Plate',                 desc: 'Spicy small octopus', price: '28' },
         ],
       },
       {

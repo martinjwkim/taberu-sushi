@@ -145,7 +145,7 @@ export default function Home() {
         <div className="relative max-w-3xl mx-auto px-6 md:px-10 text-center">
           <div className="flex items-center justify-center gap-4 mb-8">
             <span className="w-8 h-px bg-gold/40" />
-            <span className="label-caps">By Reservation Only</span>
+            <span className="label-caps">Chef's Selection</span>
             <span className="w-8 h-px bg-gold/40" />
           </div>
 
@@ -153,10 +153,9 @@ export default function Home() {
             The Omakase<br /><span className="italic text-gradient">Experience</span>
           </h2>
 
-          <p className="font-body text-parchment/80 text-sm leading-body mb-3 max-w-lg mx-auto">
+          <p className="font-body text-parchment/80 text-sm leading-body mb-10 max-w-lg mx-auto">
             Omakase — "I leave it to you" — is the highest expression of trust between guest and chef. A multi-course journey through the season's finest offerings, curated entirely at the chef's discretion.
           </p>
-          <p className="font-body text-stone text-xs mb-10">Advance notice required · Private dining available</p>
 
           <Link to="/contact" className="btn-ghost border-gold/40 text-gold hover:bg-gold/10">
             Inquire About Omakase <Arrow />
