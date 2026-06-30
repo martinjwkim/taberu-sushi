@@ -47,7 +47,7 @@ export default function Home() {
           </h1>
 
           <p className="font-body text-parchment/80 anim-fade-up d-200 max-w-sm mx-auto mb-12 leading-relaxed" style={{ fontSize: '1rem' }}>
-            Crafting the Premium Selection of Sushi&nbsp;and&nbsp;Sashimi
+            Hand-crafted sushi and sashimi from the season's&nbsp;finest&nbsp;fish
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center anim-fade-up d-300">
