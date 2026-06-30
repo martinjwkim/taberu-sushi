@@ -8,6 +8,9 @@ export default function Contact() {
     <div className="min-h-screen bg-obsidian pt-18">
       {/* Header */}
       <div className="relative overflow-hidden py-20 md:py-28 bg-carbon">
+        {/* Background photography — submerged beneath the theme */}
+        <div className="hero-photo" style={{ backgroundImage: 'url(/hero/hero-contact.jpg)', backgroundPosition: '68% 50%' }} aria-hidden="true" />
+        <div className="hero-scrim" aria-hidden="true" />
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 60% 60% at 50% 100%, rgba(200,169,110,0.06) 0%, transparent 60%)' }}
         />

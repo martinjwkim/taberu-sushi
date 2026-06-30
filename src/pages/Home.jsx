@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 
 const FEATURED = [
@@ -15,6 +16,9 @@ export default function Home() {
     <div>
       {/* ─── HERO ──────────────────────────────────────────── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center overflow-hidden bg-void">
+        {/* Background photography — submerged beneath the theme */}
+        <div className="hero-photo" style={{ backgroundImage: 'url(/hero/hero-home.jpg)', backgroundPosition: 'center 38%' }} aria-hidden="true" />
+        <div className="hero-scrim" aria-hidden="true" />
         {/* Ambient radial glow */}
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 65% 55% at 50% 42%, rgba(200,169,110,0.055) 0%, transparent 65%)' }}
@@ -90,8 +94,8 @@ export default function Home() {
 
             <div className="relative">
               <div className="aspect-[4/5] overflow-hidden shadow-card-up">
-                <img src="/8X10_PRINT_3BOX.jpg" alt="Taberu sushi presentation" className="w-full h-full object-cover" />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent mix-blend-multiply" />
+                <img src="/8X10_PRINT_3BOX.jpg" alt="Taberu sushi presentation" className="w-full h-full object-cover" style={{ filter: 'contrast(0.86) brightness(1.03)' }} />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent mix-blend-multiply" />
               </div>
               <div className="absolute -bottom-5 -right-5 w-24 h-24 border-b border-r border-gold/20 hidden md:block" />
               <div className="absolute -top-5 -left-5 w-24 h-24 border-t border-l border-gold/20 hidden md:block" />
@@ -204,42 +208,86 @@ function DishCard({ dish }) {
   )
 }
 
-const IG_PLACEHOLDERS = [
-  { c: '1c1a16', t: 'Nigiri+Set' },
-  { c: '242119', t: 'Sashimi' },
-  { c: '2d2a23', t: 'Omakase' },
-  { c: '3d392f', t: 'Uni+Nigiri' },
-  { c: '1c1a16', t: 'Toro' },
-  { c: '242119', t: 'Chirashi' },
+// Mock Instagram feed — first-frame stills from the @taberu__sushi fish-feature reels.
+// Ordered for visual variety (red / silver / dark fish interleaved).
+// To go live, paste a real BEHOLD_FEED_ID above and this static grid is bypassed.
+const IG_FEED = [
+  { src: '/feed/madai.jpg',          alt: 'Madai · red sea bream' },
+  { src: '/feed/kohada.jpg',         alt: 'Kohada · gizzard shad' },
+  { src: '/feed/blackcod.jpg',       alt: 'Black cod · sablefish' },
+  { src: '/feed/shimaaji.jpg',       alt: 'Shima aji · striped jack' },
+  { src: '/feed/kinmedai.jpg',       alt: 'Kinmedai · golden eye snapper' },
+  { src: '/feed/sayori.jpg',         alt: 'Sayori · halfbeak' },
+  { src: '/feed/kanpachi.jpg',       alt: 'Kanpachi · amberjack' },
+  { src: '/feed/kurodai.jpg',        alt: 'Kurodai · black sea bream' },
+  { src: '/feed/fujisalmon.jpg',     alt: 'Fuji salmon' },
+  { src: '/feed/itoyori.jpg',        alt: 'Itoyori · threadfin bream' },
+  { src: '/feed/matsukawagarei.jpg', alt: 'Matsukawa garei · flounder' },
+  { src: '/feed/kamasu.jpg',         alt: 'Kamasu · barracuda' },
+  { src: '/feed/mejina.jpg',         alt: 'Mejina · largescale blackfish' },
+  { src: '/feed/ojisan.jpg',         alt: 'Ojisan · goatfish' },
+  { src: '/feed/sagoshi.jpg',        alt: 'Sagoshi · Spanish mackerel' },
 ]
+
+// How many tiles are visible at once, and how often one swaps for a fresh fish.
+const FEED_VISIBLE = 8
+const FEED_ROTATE_MS = 3200
+
+// Static fallback feed: shows 8 of the 16 fish at a time and rotates one tile
+// at a time so the whole catalog cycles through, mimicking a live feed.
+function RotatingFeed() {
+  const [tiles, setTiles] = useState(() =>
+    IG_FEED.slice(0, FEED_VISIBLE).map((item, i) => ({ ...item, gen: i }))
+  )
+
+  useEffect(() => {
+    if (IG_FEED.length <= FEED_VISIBLE) return
+    let next = FEED_VISIBLE % IG_FEED.length
+    let slot = 0
+    let gen = FEED_VISIBLE
+    const id = setInterval(() => {
+      setTiles((prev) => {
+        const copy = prev.slice()
+        copy[slot] = { ...IG_FEED[next], gen }
+        return copy
+      })
+      next = (next + 1) % IG_FEED.length
+      slot = (slot + 1) % FEED_VISIBLE
+      gen += 1
+    }, FEED_ROTATE_MS)
+    return () => clearInterval(id)
+  }, [])
+
+  return (
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-3">
+      {tiles.map((item, i) => (
+        <a
+          key={i}
+          href="https://instagram.com/taberu__sushi"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="group relative aspect-square overflow-hidden block focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2"
+        >
+          <img
+            key={item.gen}
+            src={item.src}
+            alt={item.alt}
+            loading="lazy"
+            className="anim-fade-in w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+          />
+          <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-400 flex items-center justify-center">
+            <IgIconLg className="text-ivory opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-7 h-7" />
+          </div>
+        </a>
+      ))}
+    </div>
+  )
+}
 
 function BeholdGrid({ feedId }) {
   const isPlaceholder = !feedId || feedId === 'YOUR_FEED_ID'
 
-  if (isPlaceholder) {
-    return (
-      <div className="grid grid-cols-3 gap-2 md:gap-3">
-        {IG_PLACEHOLDERS.map(({ c, t }, i) => (
-          <a
-            key={i}
-            href="https://instagram.com/taberu__sushi"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group relative aspect-square overflow-hidden block focus-visible:outline-2 focus-visible:outline-gold focus-visible:outline-offset-2"
-          >
-            <img
-              src={`https://placehold.co/600x600/${c}/c8a96e?text=${t}`}
-              alt={t.replace('+', ' ')}
-              className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-            />
-            <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-400 flex items-center justify-center">
-              <IgIconLg className="text-ivory opacity-0 group-hover:opacity-100 transition-opacity duration-300 w-7 h-7" />
-            </div>
-          </a>
-        ))}
-      </div>
-    )
-  }
+  if (isPlaceholder) return <RotatingFeed />
 
   return <behold-widget feed-id={feedId} />
 }

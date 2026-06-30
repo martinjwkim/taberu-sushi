@@ -1,10 +1,10 @@
 import { Link } from 'react-router-dom'
 
 const VALUES = [
-  { kanji: '旬', romaji: 'Shun',   title: 'Seasonality',     desc: 'We serve only what the season provides. No shortcuts. No frozen fish. Every piece reflects the current moment in nature.' },
-  { kanji: '技', romaji: 'Waza',   title: 'Technique',       desc: 'Years of practice behind every cut. The angle of the knife, the pressure of the hand, the temperature of the rice — all matter.' },
-  { kanji: '誠', romaji: 'Makoto', title: 'Integrity',       desc: 'Honest sourcing, transparent preparation, genuine hospitality. No theater. No fusion gimmicks. Just the fish, the rice, and the craft.' },
-  { kanji: '間', romaji: 'Ma',     title: 'Negative Space',  desc: 'The beauty in what is left out. We resist overcomplication. A great piece of sushi needs nothing added.' },
+  { kanji: '旬', romaji: 'Shun',   title: 'Seasonality',     img: '/principles/seasonality.jpg',    desc: 'We serve only what the season provides. No shortcuts. No frozen fish. Every piece reflects the current moment in nature.' },
+  { kanji: '技', romaji: 'Waza',   title: 'Technique',       img: '/principles/technique.jpg',      desc: 'Years of practice behind every cut. The angle of the knife, the pressure of the hand, the temperature of the rice — all matter.' },
+  { kanji: '誠', romaji: 'Makoto', title: 'Integrity',       img: '/principles/integrity.jpg',      desc: 'Honest sourcing, transparent preparation, genuine hospitality. No theater. No fusion gimmicks. Just the fish, the rice, and the craft.' },
+  { kanji: '間', romaji: 'Ma',     title: 'Negative Space',  img: '/principles/negative-space.jpg', desc: 'The beauty in what is left out. We resist overcomplication. A great piece of sushi needs nothing added.' },
 ]
 
 export default function About() {
@@ -12,6 +12,9 @@ export default function About() {
     <div className="min-h-screen bg-obsidian pt-18">
       {/* Hero */}
       <div className="relative overflow-hidden py-20 md:py-32 bg-carbon">
+        {/* Background photography — submerged beneath the theme */}
+        <div className="hero-photo" style={{ backgroundImage: 'url(/hero/hero-about.jpg)', backgroundPosition: 'center 55%' }} aria-hidden="true" />
+        <div className="hero-scrim hero-scrim-left" aria-hidden="true" />
         <div className="absolute inset-0 pointer-events-none"
           style={{ background: 'radial-gradient(ellipse 65% 65% at 50% 100%, rgba(200,169,110,0.06) 0%, transparent 60%)' }}
         />
@@ -19,11 +22,11 @@ export default function About() {
           <div className="max-w-2xl">
             <p className="label-caps mb-5">Our Philosophy</p>
             <h1 className="font-display text-ivory mb-6 tracking-display" style={{ fontSize: 'var(--font-size-hero)', lineHeight: 'var(--line-height-hero)' }}>
-              The art of<br />
-              <span className="italic text-gradient">knowing when to stop</span>
+              We serve<br />
+              <span className="italic text-gradient">what the day gives</span>
             </h1>
             <p className="font-body text-parchment/80 text-base leading-body max-w-lg">
-              Great sushi is not defined by what you add — it is defined by knowing when to stop.
+              No frozen fish. No fixed menu. No shortcuts. Every piece reflects the season's best — chosen that morning, served that night.
             </p>
           </div>
         </div>
@@ -52,14 +55,14 @@ export default function About() {
 
             <div className="relative">
               <div className="aspect-[4/5] overflow-hidden shadow-card-up">
-                <img src="https://placehold.co/600x750/1c1a16/c8a96e?text=Chef+%2F+Team" alt="Taberu team" className="w-full h-full object-cover" />
+                <img src="/taberu-team.jpg" alt="Taberu itamae preparing sashimi behind the counter" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/55 to-transparent mix-blend-multiply" />
               </div>
               <div className="absolute -bottom-6 -right-6 w-24 h-24 border-b border-r border-gold/18 hidden md:block" style={{ borderColor: 'rgba(200,169,110,0.18)' }} />
               <div className="absolute -top-4 -left-4 w-24 h-24 border-t border-l border-gold/18 hidden md:block" style={{ borderColor: 'rgba(200,169,110,0.18)' }} />
               {/* Floating secondary image */}
               <div className="absolute -bottom-10 -right-8 w-2/3 overflow-hidden shadow-card hidden md:block">
-                <img src="https://placehold.co/400x400/242119/8c7448?text=Interior" alt="Restaurant interior" className="w-full h-full object-cover" />
+                <img src="/taberu-interior.jpg" alt="Taberu Sushi dining room and sushi counter" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/45 to-transparent mix-blend-multiply" />
               </div>
             </div>
@@ -89,7 +92,7 @@ export default function About() {
           <div className="grid md:grid-cols-2 gap-14 md:gap-18 items-center">
             <div className="relative order-2 md:order-1">
               <div className="aspect-[3/4] overflow-hidden shadow-card-up">
-                <img src="https://placehold.co/500x667/1c1a16/c8a96e?text=Omakase+Course" alt="Omakase presentation" className="w-full h-full object-cover" />
+                <img src="/frames/OMAKASE.jpg" alt="Taberu omakase course presentation" className="w-full h-full object-cover" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent mix-blend-multiply" />
               </div>
               <div className="absolute -bottom-4 -right-4 w-20 h-20 border-b border-r hidden md:block" style={{ borderColor: 'rgba(200,169,110,0.18)' }} />
@@ -127,22 +130,35 @@ export default function About() {
   )
 }
 
-function ValueCard({ kanji, romaji, title, desc }) {
+function ValueCard({ kanji, romaji, title, desc, img }) {
   return (
     <div
-      className="group p-7 bg-surface hover:-translate-y-1 transition-transform duration-400 cursor-default shadow-card hover:shadow-card-up transition-shadow duration-400"
+      className="group relative overflow-hidden p-7 bg-surface hover:-translate-y-1 transition-transform duration-400 cursor-default shadow-card hover:shadow-card-up"
       style={{ border: '1px solid rgba(200,169,110,0.07)' }}
       onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(200,169,110,0.18)'}
       onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(200,169,110,0.07)'}
     >
-      <div className="mb-5">
-        <span className="font-display text-gold block mb-1" style={{ fontSize: '3.2rem', lineHeight: 1, opacity: 0.22 }}>
-          {kanji}
-        </span>
-        <span className="label-caps text-gold/55" style={{ fontSize: '0.55rem' }}>{romaji}</span>
+      {/* Darkened background photo */}
+      <img
+        src={img}
+        alt=""
+        aria-hidden="true"
+        loading="lazy"
+        className="absolute inset-0 w-full h-full object-cover opacity-25 group-hover:opacity-35 group-hover:scale-105 transition-all duration-700"
+      />
+      <div className="absolute inset-0 bg-gradient-to-t from-surface via-surface/85 to-surface/70" />
+
+      {/* Content */}
+      <div className="relative">
+        <div className="mb-5">
+          <span className="font-display text-gold block mb-1" style={{ fontSize: '3.2rem', lineHeight: 1, opacity: 0.22 }}>
+            {kanji}
+          </span>
+          <span className="label-caps text-gold/55" style={{ fontSize: '0.55rem' }}>{romaji}</span>
+        </div>
+        <h3 className="font-display italic text-lg text-ivory mb-3">{title}</h3>
+        <p className="font-body text-xs text-stone leading-relaxed">{desc}</p>
       </div>
-      <h3 className="font-display italic text-lg text-ivory mb-3">{title}</h3>
-      <p className="font-body text-xs text-stone leading-relaxed">{desc}</p>
     </div>
   )
 }
