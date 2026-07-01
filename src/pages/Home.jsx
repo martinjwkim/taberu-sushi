@@ -41,7 +41,7 @@ export default function Home() {
             <span className="divider-v h-7" />
           </div>
 
-          <h1 className="font-display text-ivory anim-fade-up d-100 mb-5 tracking-display" style={{ fontSize: 'clamp(4.4rem, 11vw, 7.5rem)', lineHeight: 'var(--line-height-hero)' }}>
+          <h1 className="font-display text-ivory anim-fade-up d-100 mb-5 tracking-display" style={{ fontSize: 'clamp(4.8rem, 12.5vw, 8.75rem)', lineHeight: 'var(--line-height-hero)' }}>
             <span className="block">Taberu</span>
             <span className="block italic text-gradient">Sushi</span>
           </h1>
@@ -271,7 +271,6 @@ function RotatingFeed() {
             key={item.gen}
             src={item.src}
             alt={item.alt}
-            loading="lazy"
             className="anim-fade-in w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/45 transition-colors duration-400 flex items-center justify-center">
