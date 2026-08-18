@@ -2,12 +2,14 @@
   <title>Taberu</title>
   <!-- The two brushstrokes from the TABERU wordmark, isolated as a mark.
        Angles (33deg and 61deg from horizontal) and the red (#d52820) are
-       measured from src/assets/logo-taberu.png; the tile is --color-obsidian.
-       Strokes are drawn oversized and clipped so they bleed to the edges. -->
+       measured from src/assets/logo-taberu.png; the tile uses the site's
+       obsidian token (#0c0b09). Strokes are drawn oversized and clipped
+       so they bleed to the edges.
+       NOTE: keep double-hyphens out of this comment, they are illegal in XML. -->
   <defs><clipPath id="t"><rect width="48" height="48" rx="10" ry="10"/></clipPath></defs>
   <g clip-path="url(#t)">
     <rect width="48" height="48" fill="#0c0b09"/>
-    <line x1="-6.00" y1="43.48" x2="54.00" y2="4.52" stroke="#d52820" stroke-width="5.5"/>
-    <line x1="-6.00" y1="78.12" x2="54.00" y2="-30.12" stroke="#d52820" stroke-width="5.5"/>
+    <line x1="-6" y1="43.48" x2="54" y2="4.52" stroke="#d52820" stroke-width="5.5"/>
+    <line x1="-6" y1="78.12" x2="54" y2="-30.12" stroke="#d52820" stroke-width="5.5"/>
   </g>
 </svg>
