@@ -1,22 +1,35 @@
 import { useState, useRef, useEffect } from 'react'
 
 const SECTIONS = [
-  { id: 'sushi',    label: 'Sushi & Sashimi' },
-  { id: 'rolls',    label: 'Rolls' },
-  { id: 'bowls',    label: 'Bowls & Hot Plates' },
-  { id: 'starters', label: 'Starters' },
-  { id: 'omakase',  label: 'Omakase & Premium' },
-  { id: 'lunch',    label: 'Lunch Special' },
+  { id: 'omakase',   label: 'Omakase' },
+  { id: 'starters',  label: 'Starters' },
+  { id: 'signature', label: 'Taberu Signature' },
+  { id: 'sushi',     label: 'Sushi & Sashimi' },
+  { id: 'rolls',     label: 'Rolls' },
+  { id: 'udon',      label: 'Udon' },
+  { id: 'donburi',   label: 'Donburi' },
+  { id: 'hotplates', label: 'Signature Hot Plates' },
+  { id: 'lunch',     label: 'Lunch Special' },
 ]
 
 const DATA = {
   sushi: {
     title: 'Sushi & Sashimi',
-    subtitle: 'À la carte — Sushi (1 pc) / Sashimi (3 pcs)',
-    note: 'M.P = Market Price · prices listed as Sushi / Sashimi',
     subsections: [
       {
+        label: 'Sushi & Sashimi Sets',
+        note: 'Served with a side of miso soup & green salad',
+        items: [
+          { name: '7pc Sushi Plate',   desc: 'Bluefin tuna, cherry salmon, kanpachi, shima aji, sea water eel, chef\'s choice special fish', price: '42' },
+          { name: '9pc Sushi Plate',   desc: 'Bluefin toro, cherry salmon, kanpachi, shima aji, scallop, chef\'s choice special fish', price: '59', badge: 'Premium' },
+          { name: '8pc Sashimi Box',   desc: 'Bluefin toro, cherry salmon, kanpachi, kurodai', price: '42' },
+          { name: '16pc Sashimi Box',  desc: 'Bluefin toro, cherry salmon, kanpachi, shima aji, kurodai, with 3 kinds of chef\'s choice special fish', price: '95', badge: 'Premium' },
+          { name: '24pc Sashimi Box',  desc: 'Bluefin tuna, toro, cherry salmon, kanpachi, shima aji, kurodai, with 6 kinds of chef\'s choice special fish', price: '140', badge: 'Premium' },
+        ],
+      },
+      {
         label: 'By the Piece',
+        note: 'Prices listed as Sushi (1 pc) / Sashimi (3 pcs) · M.P = Market Price',
         items: [
           { name: 'Bluefin Tuna',        desc: 'Hon Maguro', price: '6 / 18' },
           { name: 'Bluefin Tuna Belly',  desc: 'Toro', price: '10 / 30', badge: 'Premium' },
@@ -41,23 +54,21 @@ const DATA = {
           { name: 'Fresh Water Eel',     desc: 'Unagi', price: '7 / 21' },
         ],
       },
-      {
-        label: 'Sushi & Sashimi Sets',
-        items: [
-          { name: '7pc Sushi Plate',   desc: 'Bluefin tuna, cherry salmon, kanpachi, shima aji, sea water eel, chef\'s choice special fish · with miso soup & green salad', price: '42' },
-          { name: '9pc Sushi Plate',   desc: 'Bluefin toro, cherry salmon, kanpachi, shima aji, scallop, chef\'s choice special fish · with miso soup & green salad', price: '59', badge: 'Premium' },
-          { name: '8pc Sashimi Box',   desc: 'Bluefin toro, cherry salmon, kanpachi, kurodai', price: '42' },
-          { name: '16pc Sashimi Box',  desc: 'Bluefin toro, cherry salmon, kanpachi, shima aji, kurodai, with 3 kinds of chef\'s choice special fish', price: '95', badge: 'Premium' },
-          { name: '24pc Sashimi Box',  desc: 'Bluefin tuna, toro, cherry salmon, kanpachi, shima aji, kurodai, with 6 kinds of chef\'s choice special fish', price: '140', badge: 'Premium' },
-        ],
-      },
     ],
   },
   rolls: {
     title: 'Rolls',
-    subtitle: 'Signature, on-top, tempura, baked & hand rolls',
-    note: 'Consuming raw or undercooked seafood may increase risk of foodborne illness',
     subsections: [
+      {
+        label: 'Premium Hand Rolls',
+        items: [
+            { name: 'Toro & Uni Hand Roll',                 desc: '', price: '29', badge: 'Premium' },
+            { name: 'Amaebi & Uni Hand Roll',               desc: '', price: '30', badge: 'Premium' },
+            { name: 'Soft Shell Crab & Blue Crab Hand Roll', desc: '', price: '25' },
+            { name: 'Toro Hand Roll',                       desc: '', price: '17' },
+            { name: 'Blue Crab Hand Roll',                  desc: '', price: '12' },
+        ],
+      },
       {
         label: 'Signature Rolls',
         items: [
@@ -86,16 +97,6 @@ const DATA = {
           { name: 'Tuna & Salmon on Top',    desc: 'Bluefin tuna, cherry salmon, ponzu', price: '25' },
           { name: 'Salmon on Top',           desc: 'Cherry salmon, ponzu, truffle aioli, tobiko', price: '23' },
           { name: 'Salmon & Avocado on Top', desc: 'Cherry salmon, ponzu, truffle aioli, tobiko', price: '23' },
-        ],
-      },
-      {
-        label: 'Premium Hand Rolls',
-        items: [
-          { name: 'Toro & Uni Hand Roll',                 desc: '', price: '29', badge: 'Premium' },
-          { name: 'Amaebi & Uni Hand Roll',               desc: '', price: '30', badge: 'Premium' },
-          { name: 'Soft Shell Crab & Blue Crab Hand Roll', desc: '', price: '25' },
-          { name: 'Toro Hand Roll',                       desc: '', price: '17' },
-          { name: 'Blue Crab Hand Roll',                  desc: '', price: '12' },
         ],
       },
       {
@@ -129,43 +130,37 @@ const DATA = {
       },
     ],
   },
-  bowls: {
-    title: 'Bowls & Hot Plates',
-    subtitle: 'Donburi, garlic rice plates & udon',
-    note: 'Donburi & hot plates served with a side of sunomono & miso soup',
-    subsections: [
-      {
-        label: 'Donburi',
-        items: [
-          { name: 'Chirashi',       desc: 'Chef\'s choice 12pcs sashimi, sushi rice, sesame oil, dried seaweed powder', price: '52', badge: 'Signature' },
-          { name: 'Edo Box',        desc: 'Uni, toro, blue crab, 14pcs seasonal special fishes, sushi rice, dried seaweed powder', price: '90', badge: 'Premium' },
-          { name: 'Toro Donburi',   desc: 'Chopped bluefin toro, chopped ginger, green onion, sushi rice, sesame oil, dried seaweed powder', price: '37' },
-          { name: 'Salmon Donburi', desc: '6pcs cherry salmon, ikura, sushi rice, sesame oil, dried seaweed powder', price: '29' },
-          { name: 'Unagi Donburi',  desc: '5pcs unagi, sushi rice, sesame oil, dried seaweed powder', price: '32' },
-        ],
-      },
-      {
-        label: 'Signature Hot Plates',
-        items: [
-          { name: 'Grilled Cherry Salmon & Garlic Rice Plate', desc: '', price: '29' },
-          { name: 'Spicy Pork & Garlic Rice Plate',            desc: '', price: '29' },
-          { name: 'Marinated Beef & Garlic Rice Plate',        desc: '', price: '29' },
-        ],
-      },
-      {
-        label: 'Udon',
-        items: [
-          { name: 'Basic Udon',               desc: '', price: '13' },
-          { name: 'Add Snow Crab Roll',       desc: 'Add only one', price: '12' },
-          { name: 'Add Spicy Tuna Roll',      desc: 'Add only one', price: '9' },
-          { name: 'Add Shrimp Tempura (3pc)', desc: 'Add only one', price: '9' },
-        ],
-      },
+  donburi: {
+    title: 'Donburi',
+    note: 'Served with a side of sunomono & miso soup',
+    items: [
+      { name: 'Chirashi',       desc: 'Chef\'s choice 12pcs sashimi, sushi rice, sesame oil, dried seaweed powder', price: '52', badge: 'Signature' },
+      { name: 'Edo Box',        desc: 'Uni, toro, blue crab, 14pcs seasonal special fishes, sushi rice, dried seaweed powder', price: '90', badge: 'Premium' },
+      { name: 'Toro Donburi',   desc: 'Chopped bluefin toro, chopped ginger, green onion, sushi rice, sesame oil, dried seaweed powder', price: '37' },
+      { name: 'Salmon Donburi', desc: '6pcs cherry salmon, ikura, sushi rice, sesame oil, dried seaweed powder', price: '29' },
+      { name: 'Unagi Donburi',  desc: '5pcs unagi, sushi rice, sesame oil, dried seaweed powder', price: '32' },
+    ],
+  },
+  hotplates: {
+    title: 'Signature Hot Plates',
+    note: 'Served with a side of sunomono & miso soup',
+    items: [
+      { name: 'Grilled Cherry Salmon & Garlic Rice Plate', desc: '', price: '29' },
+      { name: 'Spicy Pork & Garlic Rice Plate',            desc: '', price: '29' },
+      { name: 'Marinated Beef & Garlic Rice Plate',        desc: '', price: '29' },
+    ],
+  },
+  udon: {
+    title: 'Udon',
+    items: [
+      { name: 'Basic Udon',               desc: '', price: '13' },
+      { name: 'Add Snow Crab Roll',       desc: 'Add only one', price: '12' },
+      { name: 'Add Spicy Tuna Roll',      desc: 'Add only one', price: '9' },
+      { name: 'Add Shrimp Tempura (3pc)', desc: 'Add only one', price: '9' },
     ],
   },
   starters: {
     title: 'Starters',
-    subtitle: 'Appetizers, sashimi appetizers & salads',
     subsections: [
       {
         label: 'Appetizers',
@@ -211,31 +206,24 @@ const DATA = {
     ],
   },
   omakase: {
-    title: 'Omakase & Premium',
-    subtitle: "The chef's complete expression",
+    title: 'Omakase',
     note: 'Fish availability changes by season · all sushi & sashimi brushed with soy dressing · seasonal fish subject to change',
-    subsections: [
-      {
-        label: 'Omakase',
-        items: [
-          { name: 'Omakase', desc: 'Courses selected by the chef', price: '170', badge: 'Reserve' },
-        ],
-      },
-      {
-        label: 'Taberu Signature',
-        items: [
+    items: [
+      { name: 'Omakase', desc: 'Courses selected by the chef', price: '170', badge: 'Reserve' },
+    ],
+  },
+  signature: {
+    title: 'Taberu Signature',
+    items: [
           { name: 'Uni on Top Scallop',   desc: '2pcs seared scallop, uni, caviar', price: '33', badge: 'Premium' },
           { name: 'Uni Flight',           desc: 'Santa Barbara or Bara Japan · amaebi topped with uni, toro topped with uni, scallop topped with uni', price: 'M.P', badge: 'Premium' },
           { name: 'Toro Tartare',         desc: 'Bluefin toro, truffle, 6pcs baguette bread brushed with truffle oil', price: '39' },
           { name: 'Crab in Cherry Salmon', desc: '3pcs cherry salmon, blue crab, truffle aioli, tobiko', price: '19' },
-        ],
-      },
     ],
   },
   lunch: {
     title: 'Lunch Special',
-    subtitle: 'Served 11:00 AM – 3:00 PM, Monday to Sunday',
-    note: 'All lunch specials served with miso soup',
+    note: 'Served 11:00 AM – 3:00 PM, Monday to Sunday · all lunch specials served with miso soup',
     items: [
       { name: 'Taberu Lunch Omakase', desc: 'Chawanmushi, mini kaisendon, chef\'s choice 7 types special fish sushi, dessert', price: '88', badge: 'Signature' },
       { name: 'Sushi Lunch Set',      desc: '2pcs bluefin tuna, 2pcs cherry salmon, 2pcs yellowtail, spicy tuna roll, salad, pickle', price: '30' },
@@ -348,9 +336,10 @@ function MenuSection({ data }) {
         <div className="space-y-10">
           {data.subsections.map((sub) => (
             <div key={sub.label}>
-              <h3 className="label-caps text-gold/60 mb-4 pb-2" style={{ borderBottom: '1px solid rgba(200,169,110,0.1)' }}>
+              <h3 className={`label-caps text-gold/60 pb-2 ${sub.note ? 'mb-2' : 'mb-4'}`} style={{ borderBottom: '1px solid rgba(200,169,110,0.1)' }}>
                 {sub.label}
               </h3>
+              {sub.note && <p className="font-body text-xs text-smoke italic mb-4">{sub.note}</p>}
               <ItemGrid items={sub.items} />
             </div>
           ))}
